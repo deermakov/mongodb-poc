@@ -1,19 +1,27 @@
 package poc.mongodb.adapter.rest;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
-import poc.mongodb.app.impl.StoreDataUseCase;
-import poc.mongodb.domain.Entity;
+import org.springframework.web.bind.annotation.*;
+import poc.mongodb.app.impl.GetAllPartiesUseCase;
+import poc.mongodb.app.impl.SavePartyUseCase;
+import poc.mongodb.domain.Party;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class Controller {
 
-    private final StoreDataUseCase storeDataUseCase;
+    private final SavePartyUseCase savePartyUseCase;
+    private final GetAllPartiesUseCase getAllPartiesUseCase;
 
-    @PutMapping("/put")
-    public void putData(Entity entity){
-        storeDataUseCase.execute(entity);
+    @PostMapping("/save")
+    public void saveParty(@RequestBody Party party) {
+        savePartyUseCase.execute(party);
+    }
+
+    @GetMapping("/list")
+    public List<Party> getAllParties(){
+        return getAllPartiesUseCase.execute();
     }
 }
