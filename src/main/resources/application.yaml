@@ -4,6 +4,14 @@ server:
 spring.data.mongodb:
   host: localhost
   port: 27017
-#  database: baeldung
-#  username: user
-#  password: pass
+  database: admin
+  username: mongoadmin
+  password: mongoadmin
+
+logging:
+  level:
+    root: debug
+
+springdoc:
+  packagesToScan: poc.mongodb.adapter.rest
+  show-actuator: true
