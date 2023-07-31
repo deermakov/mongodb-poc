@@ -1,12 +1,20 @@
 package poc.mongodb.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.SuperBuilder;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Data
-@SuperBuilder
-@NoArgsConstructor
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY)
+@JsonSubTypes({
+    @JsonSubTypes.Type(Individual.class),
+    @JsonSubTypes.Type(IndividualEntrepreneur.class),
+    @JsonSubTypes.Type(LegalEntity.class)
+})
+@Document("party")
 public abstract class Party {
+    @Id
+    private String id;// автогенерация из коробки поддерживается для типов String, BigInteger, ObjectId
+
     private String inn;
 }

@@ -10,6 +10,8 @@ import java.util.Optional;
  */
 public interface Storage {
     void saveParty(Party party);
+
     List<Party> getAllParties();
-    Optional<Party> getParty(Long id);
+
+    Optional<Party> getParty(String id);
 }

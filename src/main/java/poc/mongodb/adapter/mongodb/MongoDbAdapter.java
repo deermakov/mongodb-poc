@@ -9,7 +9,6 @@ import poc.mongodb.domain.Party;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 /**
  * todo Document type MongoDbAdapter
@@ -32,7 +31,7 @@ public class MongoDbAdapter implements Storage {
     }
 
     @Override
-    public Optional<Party> getParty(Long id) {
+    public Optional<Party> getParty(String id) {
         return partyRepository.findById(id);
     }
 }

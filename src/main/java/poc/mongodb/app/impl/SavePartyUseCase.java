@@ -12,6 +12,7 @@ import poc.mongodb.domain.Party;
 @RequiredArgsConstructor
 public class SavePartyUseCase {
     private final Storage storage;
+
     public void execute(Party party) {
         storage.saveParty(party);
     }

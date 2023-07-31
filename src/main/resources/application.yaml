@@ -10,7 +10,7 @@ spring.data.mongodb:
 
 logging:
   level:
-    root: debug
+    root: info
 
 springdoc:
   packagesToScan: poc.mongodb.adapter.rest

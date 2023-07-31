@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GetAllPartiesUseCase {
     private final Storage storage;
+
     public List<Party> execute() {
         return storage.getAllParties();
     }
