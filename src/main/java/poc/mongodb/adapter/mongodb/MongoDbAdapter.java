@@ -1,6 +1,7 @@
 package poc.mongodb.adapter.mongodb;
 
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Component;
 import poc.mongodb.adapter.mongodb.repository.PartyRepository;
 import poc.mongodb.app.api.Storage;
@@ -25,13 +26,11 @@ public class MongoDbAdapter implements Storage {
 
     @Override
     public List<Party> getAllParties() {
-        List<Party> list = new ArrayList<>();
-        partyRepository.findAll().forEach(list::add);
-        return list;
+        return partyRepository.findAll();
     }
 
     @Override
-    public Optional<Party> getParty(String id) {
+    public Optional<Party> getParty(ObjectId id) {
         return partyRepository.findById(id);
     }
 }

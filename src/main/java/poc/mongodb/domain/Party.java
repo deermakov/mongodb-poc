@@ -2,6 +2,7 @@ package poc.mongodb.domain;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("party")
 public abstract class Party {
     @Id
-    private String id;// автогенерация из коробки поддерживается для типов String, BigInteger, ObjectId
+    private ObjectId id;// автогенерация из коробки поддерживается для типов String, BigInteger, ObjectId
 
     private String inn;
 }
