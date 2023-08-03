@@ -1,10 +1,14 @@
 package poc.mongodb.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-@Data
+@Getter
 public class IndividualEntrepreneur extends LegalEntity {
-    private Individual individual;
+
+    @DocumentReference
+    //@DBRef
+    private Individual individual;// Individual is referenced entity !
 
     private Boolean selfEmployed;
 }

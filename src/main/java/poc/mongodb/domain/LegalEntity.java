@@ -1,8 +1,8 @@
 package poc.mongodb.domain;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class LegalEntity extends Party {
     private String name;
 }

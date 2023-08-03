@@ -1,11 +1,11 @@
 package poc.mongodb.domain;
 
-import lombok.Data;
+import lombok.Getter;
 
 /**
  * Полученная сущность
  */
-@Data
+@Getter
 public class Individual extends Party {
     private String fio;
 }

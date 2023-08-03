@@ -1,6 +1,5 @@
 package poc.mongodb.app.api;
 
-import org.bson.types.ObjectId;
 import poc.mongodb.domain.Party;
 
 import java.util.List;
@@ -14,5 +13,5 @@ public interface Storage {
 
     List<Party> getAllParties();
 
-    Optional<Party> getParty(ObjectId id);
+    Optional<Party> getParty(String id);
 }
