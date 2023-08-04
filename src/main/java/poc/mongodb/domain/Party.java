@@ -17,6 +17,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public abstract class Party {
     @Id
     private String id;// автогенерация из коробки поддерживается для типов String, BigInteger, ObjectId
-
     private String inn;
+    private Address address;
 }

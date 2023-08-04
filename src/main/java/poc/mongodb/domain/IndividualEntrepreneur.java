@@ -9,6 +9,5 @@ public class IndividualEntrepreneur extends LegalEntity {
     @DocumentReference
     //@DBRef
     private Individual individual;// Individual is referenced entity !
-
     private Boolean selfEmployed;
 }

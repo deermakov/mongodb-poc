@@ -1,4 +1,4 @@
-package poc.mongodb.adapter.mongodb.cascade;
+package poc.mongodb.adapter.mongodb.event;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

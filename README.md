@@ -10,23 +10,26 @@ http://localhost:28081/
 ## Swagger
 http://localhost:8090/swagger-ui/index.html
 
-РџСЂРёРјРµСЂ РРџ:
+Пример ИП:
 ```json
 {
-"@class": "poc.mongodb.domain.IndividualEntrepreneur",
-"name": "РРџ Р‘Р°С…Р°СЂРµРІ",
-"individual": {
-"@class": "poc.mongodb.domain.Individual",
-"fio": "Р‘Р°С…Р°СЂРµРІ РџРµС‚СЂ РџРµС‚СЂРѕРІРёС‡"
-},
-"selfEmployed": true
+    "@class": "poc.mongodb.domain.IndividualEntrepreneur",
+    "name": "ИП Бахарев",
+    "individual": {
+        "@class": "poc.mongodb.domain.Individual",
+        "fio": "Бахарев Петр Петрович",
+        "address": {
+            "fullAddress": "Москва, 113327"
+        }
+    },
+    "selfEmployed": true
 }
 ```
 
-РџСЂРёРјРµСЂ Р¤Р›:
+Пример ФЛ:
 ```json
 {
-"@class": "poc.mongodb.domain.Individual",
-"fio": "РРІР°РЅРѕРІ РРІР°РЅ РРІР°РЅС‹С‡"
+    "@class": "poc.mongodb.domain.Individual",
+    "fio": "Иванов Иван Иваныч"
 }
 ```

@@ -1,21 +1,18 @@
-package poc.mongodb.app.impl;
+package poc.mongodb.app.impl.deal;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import poc.mongodb.app.api.Storage;
-import poc.mongodb.domain.Party;
+import poc.mongodb.domain.Deal;
 
 import java.util.List;
 
-/**
- * todo Document type SavePartyUseCase
- */
 @Component
 @RequiredArgsConstructor
-public class GetAllPartiesUseCase {
+public class GetAllDealsUseCase {
     private final Storage storage;
 
-    public List<Party> execute() {
-        return storage.getAllParties();
+    public List<Deal> execute() {
+        return storage.getAllDeals();
     }
 }
