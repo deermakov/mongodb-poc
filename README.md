@@ -10,27 +10,27 @@ http://localhost:28081/
 ## Swagger
 http://localhost:8090/swagger-ui/index.html
 
-Пример создания ИП вместе с его ФЛ:
+РџСЂРёРјРµСЂ СЃРѕР·РґР°РЅРёСЏ РРџ РІРјРµСЃС‚Рµ СЃ РµРіРѕ Р¤Р›:
 ```json
 {
     "@class": "poc.mongodb.domain.IndividualEntrepreneur",
-    "name": "ИП Бахарев",
+    "name": "РРџ Р‘Р°С…Р°СЂРµРІ",
     "individual": {
         "@class": "poc.mongodb.domain.Individual",
-        "fio": "Бахарев Петр Петрович",
+        "fio": "Р‘Р°С…Р°СЂРµРІ РџРµС‚СЂ РџРµС‚СЂРѕРІРёС‡",
         "address": {
-            "fullAddress": "Москва, 113327"
+            "fullAddress": "РњРѕСЃРєРІР°, 113327"
         }
     },
     "selfEmployed": true
 }
 ```
 
-Пример создания ИП со ссылкой на существующего ФЛ (подставь id существующего ФЛ):
+РџСЂРёРјРµСЂ СЃРѕР·РґР°РЅРёСЏ РРџ СЃРѕ СЃСЃС‹Р»РєРѕР№ РЅР° СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ Р¤Р› (РїРѕРґСЃС‚Р°РІСЊ id СЃСѓС‰РµСЃС‚РІСѓСЋС‰РµРіРѕ Р¤Р›):
 ```json
 {
     "@class": "poc.mongodb.domain.IndividualEntrepreneur",
-    "name": "ИП Бахарев 2",
+    "name": "РРџ Р‘Р°С…Р°СЂРµРІ 2",
     "individual": {
         "@class": "poc.mongodb.domain.Individual",
         "id": "64ccee1a6a7dce4e3a8a3f4f"
