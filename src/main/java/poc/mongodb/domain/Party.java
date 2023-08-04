@@ -2,7 +2,8 @@ package poc.mongodb.domain;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import lombok.Getter;
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -13,7 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
     @JsonSubTypes.Type(LegalEntity.class)
 })
 @Document("party")
-@Getter
+@Data
+@ToString
 public abstract class Party {
     @Id
     private String id;// автогенерация из коробки поддерживается для типов String, BigInteger, ObjectId

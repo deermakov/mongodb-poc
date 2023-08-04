@@ -1,9 +1,11 @@
 package poc.mongodb.domain;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-@Getter
+@Data
+@ToString
 public class IndividualEntrepreneur extends LegalEntity {
 
     @DocumentReference

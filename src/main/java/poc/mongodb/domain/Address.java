@@ -1,8 +1,10 @@
 package poc.mongodb.domain;
 
-import lombok.Getter;
+import lombok.Data;
+import lombok.ToString;
 
-@Getter
+@Data
+@ToString
 public class Address {
     private String fullAddress;
 }
