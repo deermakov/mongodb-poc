@@ -10,7 +10,7 @@ http://localhost:28081/
 ## Swagger
 http://localhost:8090/swagger-ui/index.html
 
-Пример создания ИП вместе с его ФЛ:
+1. Пример создания ИП вместе с его ФЛ:
 ```json
 {
     "@class": "poc.mongodb.domain.IndividualEntrepreneur",
@@ -26,7 +26,7 @@ http://localhost:8090/swagger-ui/index.html
 }
 ```
 
-Пример создания ИП со ссылкой на существующего ФЛ (подставь id существующего ФЛ):
+2. Пример создания ИП со ссылкой на существующего ФЛ (подставь id существующего ФЛ):
 ```json
 {
     "@class": "poc.mongodb.domain.IndividualEntrepreneur",
@@ -38,3 +38,29 @@ http://localhost:8090/swagger-ui/index.html
     "selfEmployed": false
 }
 ```
+3. Пример создания сделки вместе с участниками
+```json
+{
+    "number": "Сделка-1",
+    "amount": 11.22,
+    "participants": [
+        {
+            "@class": "poc.mongodb.domain.LegalEntity",
+            "name": "ООО Ромашка",
+            "inn": "111222",
+            "address": {
+              "fullAddress": "Москва, 113327"
+            }
+        },
+        {
+          "@class": "poc.mongodb.domain.Individual",
+          "fio": "Остап Бендер",
+          "inn": "999000",
+          "address": {
+            "fullAddress": "Одесса, 123"
+          }
+        }
+    ]
+}
+```
+4. сс
