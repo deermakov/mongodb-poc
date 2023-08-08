@@ -3,6 +3,10 @@
 ## MongoDB docker image
 https://hub.docker.com/_/mongo-express
 
+Конфигурация инфраструктуры: _/docker/docker-compose.yaml_<br>
+Запуск инфраструктуры: `docker-compose up -d`<br>
+Остановка инфраструктуры: `docker-compose down -v`
+
 ## MongoDB web console
 http://localhost:28081/
 (admin / changeme, see docker-compose.yaml)
@@ -63,17 +67,19 @@ http://localhost:8090/swagger-ui/index.html
     ]
 }
 ```
-
-Отношение Deal : Party = M:N (Party.deals - Deal.participants), отсюда циркулярная зависимость этих java-бинов и stack overflow в Jackson при их сериализации в JSON.
+## Замечания
+Отношение Deal : Party = M:N (Party.deals - Deal.participants),
+отсюда циркулярная зависимость этих java-бинов и stack overflow в Jackson
+при их сериализации в JSON (напр. при вызове GET /deal/list и GET /party/list).
 
 Для устранения этой проблемы логично не считывать соответствующие данные при выборке, но например через projections это не получится:<br>
 в документации сказано "_Projections must not be applied to DBRefs_",
-и если всё-таки попробовать сделать такую логику в repository
+и если всё-таки попробовать сделать такую логику в DealRepository (для примера на поле Party.inn)
 
 `@Query(value = "select d from Deal d", fields = "{'participants.inn': 0 }")
 List<Deal> findAll();`<br>
 то будет exception "_Invalid path reference participants.inn; Associations can only be pointed to directly or via their id property_".
 Очевидно, это потому, что у нас Deal.participants считывается через `@DocumentReference`
 
-Поэтому примемен костыль - очистка данных уже после считывания, см. `MongoDbAdapter.getAllParties()` и `MongoDbAdapter.getAllDeals()`,
+Поэтому применен костыль - очистка данных уже после считывания, см. `MongoDbAdapter.getAllParties()` и `MongoDbAdapter.getAllDeals()`,
 а на java beans навешена аннотация `@JsonInclude(JsonInclude.Include.NON_NULL)`, чтобы пустые поля не светились.
