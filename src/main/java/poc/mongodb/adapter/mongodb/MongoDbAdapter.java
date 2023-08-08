@@ -24,7 +24,12 @@ public class MongoDbAdapter implements Storage {
 
     @Override
     public List<Party> getAllParties() {
-        return partyRepository.findAll();
+        List<Party> list = partyRepository.findAll();
+        list.forEach(party -> party.getDeals().forEach(
+                deal -> deal.setParticipants(null)
+            )
+        );
+        return list;
     }
 
     @Override
@@ -39,6 +44,11 @@ public class MongoDbAdapter implements Storage {
 
     @Override
     public List<Deal> getAllDeals() {
-        return dealRepository.findAll();
+        List<Deal> list = dealRepository.findAll();
+        list.forEach(deal -> deal.getParticipants().forEach(
+                party -> party.setDeals(null)
+            )
+        );
+        return list;
     }
 }

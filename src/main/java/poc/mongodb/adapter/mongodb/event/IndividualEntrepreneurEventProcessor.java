@@ -26,9 +26,11 @@ public class IndividualEntrepreneurEventProcessor extends AbstractMongoEventList
         updateIndividual(individualEntrepreneur.getIndividual());
     }
 
-    /** Обновление существующего ФЛ сделано чисто для примера, только в этом сценарии.
+    /**
+     * Обновление существующего ФЛ сделано чисто для примера, только в этом сценарии.
      * Реализовано на скорую руку с помощью BeanMerger, возможно в MongoDB
-     * есть готовые механизмы... */
+     * есть готовые механизмы...
+     */
     private void updateIndividual(Individual individual) {
         if (individual.getId() != null) {
             Party updatedIndividual = partyRepository

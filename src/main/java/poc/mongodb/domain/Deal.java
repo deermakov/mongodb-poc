@@ -1,5 +1,6 @@
 package poc.mongodb.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -12,6 +13,7 @@ import java.util.List;
 @Document("deal")
 @Data
 @ToString
+@JsonInclude(JsonInclude.Include.NON_NULL) // для красоты
 public class Deal {
     @Id
     private String id;// автогенерация из коробки поддерживается для типов String, BigInteger, ObjectId
