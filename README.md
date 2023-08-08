@@ -68,6 +68,10 @@ http://localhost:8090/swagger-ui/index.html
 }
 ```
 ## Замечания
+### 1
+Для Работы с MongoDB используются Spring Data Repositories. MongoTemplate не используется.
+
+### 2
 Отношение Deal : Party = M:N (Party.deals - Deal.participants),
 отсюда циркулярная зависимость этих java-бинов и stack overflow в Jackson
 при их сериализации в JSON (напр. при вызове GET /deal/list и GET /party/list).
@@ -81,5 +85,8 @@ List<Deal> findAll();`<br>
 то будет exception "_Invalid path reference participants.inn; Associations can only be pointed to directly or via their id property_".
 Очевидно, это потому, что у нас Deal.participants считывается через `@DocumentReference`
 
-Поэтому применен костыль - очистка данных уже после считывания, см. `MongoDbAdapter.getAllParties()` и `MongoDbAdapter.getAllDeals()`,
+Возможно, удаление полей на этапе вычитывания данных получится сделать, если использовать MongoTemplate (вместо Repository, как сейчас), и там
+реализовать aggregetion pipeline, в котором и выполнять фильтрацию полей.
+
+Поэтому пока применен костыль - очистка данных уже после считывания, см. `MongoDbAdapter.getAllParties()` и `MongoDbAdapter.getAllDeals()`,
 а на java beans навешена аннотация `@JsonInclude(JsonInclude.Include.NON_NULL)`, чтобы пустые поля не светились.
