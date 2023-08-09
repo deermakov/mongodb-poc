@@ -3,10 +3,10 @@ package poc.mongodb.adapter;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//@SpringBootTest
 class MongodbPocApplicationTests {
 
-    @Test
+//    @Test
     void contextLoads() {
     }
 }

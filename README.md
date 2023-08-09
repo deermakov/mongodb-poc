@@ -1,11 +1,12 @@
 "# mongodb-poc" 
 
-## MongoDB docker image
-https://hub.docker.com/_/mongo-express
+## Инфраструктура
+MongoDB docker image: https://hub.docker.com/_/mongo-express <br>
+Конфигурация инфраструктуры: _/docker/docker-compose.yaml_ <br>
+Запуск инфраструктуры: `docker-compose up -d` <br>
+Остановка инфраструктуры: `docker-compose down -v` <br>
 
-Конфигурация инфраструктуры: _/docker/docker-compose.yaml_<br>
-Запуск инфраструктуры: `docker-compose up -d`<br>
-Остановка инфраструктуры: `docker-compose down -v`
+Для перегенерации мапперов MapStruct выполни `mvn clean compile`
 
 ## MongoDB web console
 http://localhost:28081/
@@ -80,13 +81,19 @@ http://localhost:8090/swagger-ui/index.html
 в документации сказано "_Projections must not be applied to DBRefs_",
 и если всё-таки попробовать сделать такую логику в DealRepository (для примера на поле Party.inn)
 
-`@Query(value = "select d from Deal d", fields = "{'participants.inn': 0 }")
-List<Deal> findAll();`<br>
+`@Query(value = "select d from Deal d", fields = "{'participants.inn': 0 }")` <br>
+`List<Deal> findAll();` <br>
 то будет exception "_Invalid path reference participants.inn; Associations can only be pointed to directly or via their id property_".
 Очевидно, это потому, что у нас Deal.participants считывается через `@DocumentReference`
 
-Возможно, удаление полей на этапе вычитывания данных получится сделать, если использовать MongoTemplate (вместо Repository, как сейчас), и там
-реализовать aggregetion pipeline, в котором и выполнять фильтрацию полей.
+Возможные решения:
 
-Поэтому пока применен костыль - очистка данных уже после считывания, см. `MongoDbAdapter.getAllParties()` и `MongoDbAdapter.getAllDeals()`,
+1. Если мы отдаем Entity как есть, то можно применить костыль - очистка данных после считывания, см. `MongoDbAdapter.getAllDeals()`,
 а на java beans навешена аннотация `@JsonInclude(JsonInclude.Include.NON_NULL)`, чтобы пустые поля не светились.
+
+2. Если отдаем DTO, то исключаем считывание данных путем задания lazy load = true (см. _Party.deals_) и делаем исключение ненужных полей
+из мапинга Entity > DTO (в PartyDto отсутствует поле deals), чтобы load не выполнялся отдельно.
+Применено в `MongoDbAdapter.getAllParties()`
+
+3. Непроверенное решение: возможно, удаление полей на этапе вычитывания данных получится сделать, если
+реализовать aggregetion pipeline, в котором и попробовать выполнять фильтрацию полей.

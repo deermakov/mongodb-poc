@@ -24,12 +24,7 @@ public class MongoDbAdapter implements Storage {
 
     @Override
     public List<Party> getAllParties() {
-        List<Party> list = partyRepository.findAll();
-        list.forEach(party -> party.getDeals().forEach(
-                deal -> deal.setParticipants(null)
-            )
-        );
-        return list;
+        return partyRepository.findAll();
     }
 
     @Override

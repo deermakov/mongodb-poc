@@ -32,6 +32,10 @@ public abstract class Party {
             Поэтому чтобы при считывании Party вычитать её deals,
             применяем здесь lookup (в формате "поле в Deal" : "поле в Party").
      */
-    @DocumentReference(collection = "deal", lookup = "{'participants':?#{#self._id} }")
+    @DocumentReference(
+        collection = "deal",
+        lookup = "{'participants':?#{#self._id} }",
+        lazy = true
+    )
     private List<Deal> deals;
 }
