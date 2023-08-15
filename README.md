@@ -31,14 +31,16 @@ http://localhost:8090/swagger-ui/index.html
 }
 ```
 
-2. Пример создания ИП со ссылкой на существующего ФЛ (подставь id существующего ФЛ):
+2. Пример создания ИП со ссылкой на существующего ФЛ, при этом также обновляется этот ФЛ (поле "fio").
+Перед выполнением подставь в _individual.id_ id существующего ФЛ:
 ```json
 {
     "@class": "poc.mongodb.domain.IndividualEntrepreneur",
     "name": "ИП Бахарев 2",
     "individual": {
         "@class": "poc.mongodb.domain.Individual",
-        "id": "64ccee1a6a7dce4e3a8a3f4f"
+        "id": "64ccee1a6a7dce4e3a8a3f4f",
+        "fio": "Бахарев - 2"
     },
     "selfEmployed": false
 }
@@ -68,11 +70,36 @@ http://localhost:8090/swagger-ui/index.html
     ]
 }
 ```
+4. Пример создания сделки со ссылкой на существующего участника-ЮЛ,
+  при этом также обновляется этот ЮЛ (поле "name").
+   Перед выполнением подставь в _participants.id_ id существующего ЮЛ
+```json
+{
+    "number": "Сделка-2",
+    "amount": 22.33,
+    "participants": [
+        {
+            "@class": "poc.mongodb.domain.LegalEntity",
+            "id": "64ccee1a6a7dce4e3a8a3f4f",
+            "name": "ООО Ромашка - 2"
+        }
+    ]
+}
+```
 ## Замечания
 ### 1
 Для Работы с MongoDB используются Spring Data Repositories. MongoTemplate не используется.
 
 ### 2
+Реализованы 2 варианта обновления (merge) сущностей:
+- кастомный (с помощью BeanMerger) - см. `IndividualEntrepreneurEventProcessor.updateIndividual()`, проверка сценария - пример № 2 выше
+- средствами MongoDB aggregation pipeline - см. `DealEventProcessor.updateParticipants()`, проверка сценария - пример № 4 выше
+
+Реализовано частичное обновление полей (not null поля из запроса перезатирают поля в БД,
+а остальные поля в БД остаются как есть).
+Но очистка (за'null'ение) полей в БД не реализована для простоты примера.
+
+### 3
 Отношение Deal : Party = M:N (Party.deals - Deal.participants),
 отсюда циркулярная зависимость этих java-бинов и stack overflow в Jackson
 при их сериализации в JSON (напр. при вызове GET /deal/list и GET /party/list).

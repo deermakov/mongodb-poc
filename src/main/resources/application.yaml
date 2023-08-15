@@ -12,6 +12,8 @@ logging:
   level:
     root: info
     poc: debug
+    org.mongodb.driver.protocol: DEBUG
+    org.springframework.data.mongodb: DEBUG
 
 springdoc:
   packagesToScan: poc.mongodb.adapter.rest

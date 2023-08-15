@@ -7,19 +7,38 @@ import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;
 import org.springframework.stereotype.Component;
 import poc.mongodb.adapter.mongodb.repository.PartyRepository;
 import poc.mongodb.domain.Deal;
+import poc.mongodb.domain.Party;
 
-/**
- * Spring Data MongoDB doesn't support cascade save, so we have to perform it explicitly
- */
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class DealEventProcessor extends AbstractMongoEventListener<Deal> {
     private final PartyRepository partyRepository;
 
+    /**
+     * Spring Data MongoDB doesn't support cascade save,
+     * so we have to perform it explicitly
+     */
     @Override
     public void onBeforeConvert(BeforeConvertEvent<Deal> event) {
         Deal deal = event.getSource();
-        partyRepository.saveAll(deal.getParticipants());
+        updateParticipants(deal);// производительность (кол-во read/save) здесь не учитываем
     }
+
+    /**
+     * Пример обновления существующего ФЛ с помощью aggregation pipeline
+     */
+    private void updateParticipants(Deal deal) {
+        for (Party party : deal.getParticipants()){
+            Party updatedParty = party;
+            if (party.getId() != null) {
+                updatedParty = partyRepository
+                    .update(party.getId(), party)
+                    .orElse(party);
+            }
+            updatedParty.setDeals(null);// иначе будет ошибка при сохранении, и вообще, не храним deals в party
+            partyRepository.save(updatedParty);
+        }
+    }
+
 }

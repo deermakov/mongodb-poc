@@ -11,15 +11,16 @@ import poc.mongodb.domain.Individual;
 import poc.mongodb.domain.IndividualEntrepreneur;
 import poc.mongodb.domain.Party;
 
-/**
- * Spring Data MongoDB doesn't support cascade save, so we have to perform it explicitly
- */
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class IndividualEntrepreneurEventProcessor extends AbstractMongoEventListener<IndividualEntrepreneur> {
     private final PartyRepository partyRepository;
 
+    /**
+     * Spring Data MongoDB doesn't support cascade save,
+     * so we have to perform it explicitly
+     */
     @Override
     public void onBeforeConvert(BeforeConvertEvent<IndividualEntrepreneur> event) {
         IndividualEntrepreneur individualEntrepreneur = event.getSource();
@@ -27,9 +28,7 @@ public class IndividualEntrepreneurEventProcessor extends AbstractMongoEventList
     }
 
     /**
-     * Обновление существующего ФЛ сделано чисто для примера, только в этом сценарии.
-     * Реализовано на скорую руку с помощью BeanMerger, возможно в MongoDB
-     * есть готовые механизмы...
+     * Пример обновления существующего ФЛ с помощью BeanMerger
      */
     private void updateIndividual(Individual individual) {
         if (individual.getId() != null) {
