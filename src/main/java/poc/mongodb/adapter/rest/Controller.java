@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import poc.mongodb.adapter.rest.dto.LegalEntityDto;
 import poc.mongodb.adapter.rest.dto.PartyDto;
 import poc.mongodb.adapter.rest.mapper.PartyMapper;
 import poc.mongodb.app.impl.deal.GetAllDealsUseCase;
@@ -45,7 +44,7 @@ public class Controller {
     public List<PartyDto> getAllParties() {
         return getAllPartiesUseCase.execute()
             .stream()
-            .map(party -> switch (party.getClass().getSimpleName()){//костыль
+            .map(party -> switch (party.getClass().getSimpleName()) {//костыль
                 case "Individual" -> partyMapper.indToDto((Individual) party);
                 case "LegalEntity" -> partyMapper.leToDto((LegalEntity) party);
                 default -> null;

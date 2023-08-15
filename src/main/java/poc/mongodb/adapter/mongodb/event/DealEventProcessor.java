@@ -29,7 +29,7 @@ public class DealEventProcessor extends AbstractMongoEventListener<Deal> {
      * Пример обновления существующего ФЛ с помощью aggregation pipeline
      */
     private void updateParticipants(Deal deal) {
-        for (Party party : deal.getParticipants()){
+        for (Party party : deal.getParticipants()) {
             Party updatedParty = party;
             if (party.getId() != null) {
                 updatedParty = partyRepository
@@ -40,5 +40,4 @@ public class DealEventProcessor extends AbstractMongoEventListener<Deal> {
             partyRepository.save(updatedParty);
         }
     }
-
 }

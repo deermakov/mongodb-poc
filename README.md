@@ -1,4 +1,10 @@
-"# mongodb-poc" 
+# mongodb-poc
+PoC Spring Data MongoDB, включая:
+- MongoRepository,
+- Embedded и Normalized data models,
+- M:N relationships,
+- Aggregation pipelines,
+- Обновление (merge) графа сущностей, включая обновление (в т.ч. перепривязку) вложенных сущностей
 
 ## Инфраструктура
 MongoDB docker image: https://hub.docker.com/_/mongo-express <br>
@@ -125,4 +131,4 @@ http://localhost:8090/swagger-ui/index.html
 Применено в `MongoDbAdapter.getAllParties()`.
 
 3. Непроверенное решение: возможно, удаление полей на этапе вычитывания данных получится сделать, если
-реализовать aggregetion pipeline, в котором и попробовать выполнять фильтрацию полей.
+реализовать aggregetion pipeline, в котором и попробовать выполнять фильтрацию полей ($unset ?).
